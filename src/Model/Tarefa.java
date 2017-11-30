@@ -90,4 +90,10 @@ public class Tarefa {
 		this.concluida = estado;
 	}
 
+	@Override
+	public String toString() {
+		return "Tarefa [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", tags=" + tags
+				+ ", prioridade=" + prioridade + ", data=" + data + ", concluida=" + concluida + "]";
+	}
+
 }
