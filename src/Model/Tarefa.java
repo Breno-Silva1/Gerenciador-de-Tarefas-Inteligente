@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.Calendar;
 
 public class Tarefa {
 	private int id;
@@ -8,31 +7,31 @@ public class Tarefa {
 	private String descricao;
 	private String tags;
 	private int prioridade;
-	private Calendar data;
+	private String data;
 	private boolean concluida;
 	
 	public Tarefa() {
-		
+		concluida = false;
 	}
 	
-	public Tarefa(int id, String titulo, String descricao, String tags, int prioridade) {
+	public Tarefa(String titulo, String descricao, String tags, int prioridade) {
 		super();
-		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.tags = tags;
 		this.prioridade = prioridade;
+		concluida = false;
 	}
 
 	
-	public Tarefa(int id, String titulo, String descricao, String tags, int prioridade, Calendar data) {
+	public Tarefa(String titulo, String descricao, String tags, int prioridade, String data) {
 		super();
-		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.tags = tags;
 		this.prioridade = prioridade;
 		this.data = data;
+		concluida = true;
 	}
 
 	public int getId() {
@@ -75,11 +74,11 @@ public class Tarefa {
 		this.prioridade = prioridade;
 	}
 
-	public Calendar getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Calendar data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
