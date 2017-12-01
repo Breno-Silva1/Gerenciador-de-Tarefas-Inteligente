@@ -17,9 +17,9 @@ public class Agenda {
 		this.conexao = null;
 	}
 	
-	public boolean cadastrarTarefa(Tarefa umaTarefa){
+	public boolean cadastrarTarefa(Tarefa umaTarefa, int id_usuario){
 		boolean retorno = false;
-		String insert_tarefa = "INSERT INTO tarefa (titulo, descricao, tags, prioridade, data_tarefa, estado) VALUES (?, ?, ?, ?, ?, ?);";
+		String insert_tarefa = "INSERT INTO tarefa (titulo, descricao, tags, prioridade, data_tarefa, estado, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(insert_tarefa);
@@ -30,6 +30,7 @@ public class Agenda {
 			stmt.setInt(4, umaTarefa.getPrioridade());
 			stmt.setString(5, umaTarefa.getData());
 			stmt.setBoolean(6, umaTarefa.getEstado());
+			stmt.setInt(7, id_usuario);
 
 			if (stmt.executeUpdate() > 0) {
 				retorno = true;

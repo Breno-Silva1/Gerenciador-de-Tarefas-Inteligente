@@ -63,7 +63,7 @@ public class MainUI {
 			
 			Agenda agenda = new Agenda();
 			
-			if(agenda.cadastrarTarefa(firstTask)) {
+			if(agenda.cadastrarTarefa(firstTask, 1)) {
 				System.out.println("Tarefa cadastrada!");
 			} else {
 				System.out.println("Não foi possível cadastrar tarefa!");
