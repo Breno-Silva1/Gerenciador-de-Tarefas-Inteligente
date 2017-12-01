@@ -1,10 +1,28 @@
 package Model;
 
 public class Usuario {
-	String nome;
-	String username;
-	String email;
-	String senha;
+	private int id;
+	private String nome;
+	private String username;
+	private String email;
+	private String senha;
+	
+	
+	public Usuario(int id, String nome, String username, String email, String senha) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.username = username;
+		this.email = email;
+		this.senha = senha;
+	}
+	
+	
+	public Usuario() {
+		super();
+	}
+
+
 	public String getNome() {
 		return nome;
 	}
