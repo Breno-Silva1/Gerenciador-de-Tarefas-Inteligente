@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Controller.Agenda;
 import Model.Tarefa;
 import Model.Tipo;
+import Model.Usuario;
 
 public class MainUI {
 
@@ -46,6 +47,9 @@ public class MainUI {
 			data = scanner.nextLine();
 			
 			Tarefa firstTask = new Tarefa(titulo, descricao, tags, prioridade, data);
+			Tarefa firstMeta = new Tarefa(titulo, descricao, tags, prioridade);
+			Usuario user = new Usuario();
+			user.setId(1);
 			
 			System.out.println("Escolha o tipo da tarefa: ");
 			System.out.println("1. " + musica.getNome_tipo());
@@ -63,10 +67,12 @@ public class MainUI {
 			
 			Agenda agenda = new Agenda();
 			
-			if(agenda.cadastrarTarefa(firstTask, 1)) {
-				System.out.println("Tarefa cadastrada!");
+			agenda.cadastrarTarefa(firstTask, user);
+			
+			if(agenda.cadastrarMeta(firstMeta, user)) {
+				System.out.println("Meta cadastrada!");
 			} else {
-				System.out.println("Não foi possível cadastrar tarefa!");
+				System.out.println("Não foi possível cadastrar Meta!");
 			}
 		}
 		scanner.close();

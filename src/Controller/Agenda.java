@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Model.Tarefa;
+import Model.Usuario;
 
 public class Agenda {
 	
@@ -17,7 +18,7 @@ public class Agenda {
 		this.conexao = null;
 	}
 	
-	public boolean cadastrarTarefa(Tarefa umaTarefa, int id_usuario){
+	public boolean cadastrarTarefa(Tarefa umaTarefa, Usuario usuario){
 		boolean retorno = false;
 		String insert_tarefa = "INSERT INTO tarefa (titulo, descricao, tags, prioridade, data_tarefa, estado, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		try {
@@ -30,7 +31,7 @@ public class Agenda {
 			stmt.setInt(4, umaTarefa.getPrioridade());
 			stmt.setString(5, umaTarefa.getData());
 			stmt.setBoolean(6, umaTarefa.getEstado());
-			stmt.setInt(7, id_usuario);
+			stmt.setInt(7, usuario.getId());
 
 			if (stmt.executeUpdate() > 0) {
 				retorno = true;
@@ -45,6 +46,35 @@ public class Agenda {
 		}
 		return retorno;
 	}
+	
+	public boolean cadastrarMeta(Tarefa umaTarefa, Usuario usuario){
+		boolean retorno = false;
+		String insert_tarefa = "INSERT INTO meta (titulo, descricao, tags, prioridade, estado, id_usuario) VALUES (?, ?, ?, ?, ?, ?);";
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(insert_tarefa);
+
+			stmt.setString(1, umaTarefa.getTitulo());
+			stmt.setString(2, umaTarefa.getDescricao());
+			stmt.setString(3, umaTarefa.getTags());
+			stmt.setInt(4, umaTarefa.getPrioridade());
+			stmt.setBoolean(5, umaTarefa.getEstado());
+			stmt.setInt(6, usuario.getId());
+
+			if (stmt.executeUpdate() > 0) {
+				retorno = true;
+			} else {
+				retorno = false;
+			}
+			stmt.close();
+			conexao.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return retorno;
+	}
+	
 	
 	public void removerTarefa(){
 		
