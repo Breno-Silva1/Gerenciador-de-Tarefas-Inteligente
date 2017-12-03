@@ -2,6 +2,7 @@ package Controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -86,6 +87,34 @@ public class Agenda {
 	
 	public void concluirTarefa(){
 		
+	}
+	
+	public Tarefa buscarTarefaPorTitulo(String titulo){
+		String insert_tarefa = "SELECT * FROM meta WHERE titulo = ?;";
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(insert_tarefa);
+			stmt.setString(1, titulo);
+
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				int id = rs.getInt("id");
+				String tituloBD = rs.getString("titulo");
+				String descricao = rs.getString("descricao");
+				String tags = rs.getString("descricao");
+				int prioridade = rs.getInt("prioridade");
+				String data = rs.getString("descricao");
+				boolean concluida = rs.getBoolean("estado");
+				return new Tarefa(id, tituloBD, descricao, tags, prioridade, data, concluida);
+			}
+			
+			stmt.close();
+			conexao.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	//Exibir as tarefas

@@ -31,7 +31,19 @@ public class Tarefa {
 		this.tags = tags;
 		this.prioridade = prioridade;
 		this.data = data;
-		concluida = true;
+		concluida = false;
+	}
+	
+	//CONSTRUTOR PARA PEGAR DO BD
+	public Tarefa(int id, String titulo, String descricao, String tags, int prioridade, String data, boolean concluida) {
+		super();
+		this.id = id;
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.tags = tags;
+		this.prioridade = prioridade;
+		this.data = data;
+		this.concluida = concluida;
 	}
 
 	public int getId() {
