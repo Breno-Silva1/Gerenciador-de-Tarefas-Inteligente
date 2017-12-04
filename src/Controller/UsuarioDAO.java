@@ -35,7 +35,7 @@ public class UsuarioDAO {
 		}
 		return retorno;
 	}
-	
+	// Autenticar usuário!
 	public Usuario autenticar(String login, String senha){
 		Usuario user = null;
 		String pesquisarLoginESenha = "SELECT username FROM usuario WHERE username = ? AND senha = ? OR email = ? AND senha = ?;";
