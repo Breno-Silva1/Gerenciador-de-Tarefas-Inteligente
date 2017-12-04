@@ -14,6 +14,14 @@ public class Usuario {
 		this.email = email;
 		this.senha = senha;
 	}
+	public Usuario(int id, String nome, String username, String email, String senha) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.username = username;
+		this.email = email;
+		this.senha = senha;
+	}
 
 	public Usuario() {
 		super();
