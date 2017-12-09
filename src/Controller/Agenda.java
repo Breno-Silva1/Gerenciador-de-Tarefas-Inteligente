@@ -15,7 +15,6 @@ public class Agenda {
 	Connection conexao;
 	
 	public Agenda(){
-		this.tarefas = new ArrayList<>();
 		this.conexao = null;
 	}
 	
@@ -77,12 +76,35 @@ public class Agenda {
 	}
 	
 	
-	public void removerTarefa(){
+	public void removerTarefa(String titulo){
+		String delete_tarefa = "DELETE FROM tabela WHERE titulo = ?";
 		
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(delete_tarefa);
+			stmt.setString(1, titulo);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void editarTarefa(){
+	public void editarTarefa(Tarefa tarefa){
+		String update_tarefa = "UPDATE tarefa SET titulo = ?, descricao = ?, tags = ? prioridade = ? data_tarefa = ? WHERE titulo = ?;";
 		
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(update_tarefa);
+			stmt.setString(1, tarefa.getTitulo());
+			stmt.setString(2, tarefa.getDescricao());
+			stmt.setString(3, tarefa.getTags());
+			stmt.setInt(4, tarefa.getPrioridade());
+			stmt.setString(5, tarefa.getData());
+			stmt.setString(6, tarefa.getTitulo());
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void concluirTarefa(){
@@ -90,10 +112,10 @@ public class Agenda {
 	}
 	
 	public Tarefa buscarTarefaPorTitulo(String titulo){
-		String insert_tarefa = "SELECT * FROM meta WHERE titulo = ?;";
+		String selected_tarefa = "SELECT * FROM meta WHERE titulo = ?;";
 		try {
 			conexao = FabricaDeConexao.getConnection();
-			PreparedStatement stmt = conexao.prepareStatement(insert_tarefa);
+			PreparedStatement stmt = conexao.prepareStatement(selected_tarefa);
 			stmt.setString(1, titulo);
 
 			ResultSet rs = stmt.executeQuery();
@@ -119,7 +141,33 @@ public class Agenda {
 	
 	//Exibir as tarefas
 	
-	public ArrayList<Tarefa> exibirTodasTarefas(){
+	public ArrayList<Tarefa> exibirTodasTarefas(int id){
+		this.tarefas = new ArrayList<>();
+		String selected_tarefa = "SELECT * FROM tarefa WHERE id_usuario = ?;";
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(selected_tarefa);
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Tarefa tarefa = new Tarefa();
+				tarefa.setId(rs.getInt("id"));
+				tarefa.setTitulo(rs.getString("titulo"));
+				tarefa.setDescricao(rs.getString("descricao"));
+				tarefa.setTags(rs.getString("tags"));
+				tarefa.setPrioridade(rs.getInt("prioridade"));
+				tarefa.setData(rs.getString("data_tarefa"));
+				tarefa.setEstado(rs.getBoolean("estado"));
+				tarefa.setUsuario_id(id);
+				
+				tarefas.add(tarefa);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return tarefas;
 	}
 	

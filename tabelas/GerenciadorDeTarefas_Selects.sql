@@ -1,6 +1,6 @@
 USE GerenciadorDeTarefas;
 
-INSERT INTO usuario (id, nome, username, email, senha) VALUES (1, "Breno Silva", "breno", "breno@gmail.com", "1234");
+INSERT INTO usuario (nome, username, email, senha) VALUES ("Breno Silva", "breno", "breno@gmail.com", "1234");
 
 SELECT * FROM usuario;
 SELECT * FROM tarefa;
