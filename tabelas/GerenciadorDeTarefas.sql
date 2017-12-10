@@ -6,8 +6,8 @@ USE GerenciadorDeTarefas;
 CREATE TABLE usuario (
 	id INT(11) AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(200) NOT NULL,
-    username VARCHAR(25) NOT NULL,
-    email VARCHAR(25) NOT NULL,
+    username VARCHAR(25) NOT NULL UNIQUE,
+    email VARCHAR(25) NOT NULL UNIQUE,
     senha VARCHAR(25) NOT NULL
 );
 
