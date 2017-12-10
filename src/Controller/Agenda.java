@@ -76,21 +76,23 @@ public class Agenda {
 	}
 	
 	
-	public void removerTarefa(String titulo){
-		String delete_tarefa = "DELETE FROM tabela WHERE titulo = ?";
+	public void removerTarefa(String titulo, Usuario usuario){
+		String delete_tarefa = "DELETE FROM tarefa WHERE titulo = ? AND id_usuario = ?";
 		
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(delete_tarefa);
 			stmt.setString(1, titulo);
+			stmt.setInt(2, usuario.getId());
+			stmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void editarTarefa(Tarefa tarefa){
-		String update_tarefa = "UPDATE tarefa SET titulo = ?, descricao = ?, tags = ? prioridade = ? data_tarefa = ? WHERE titulo = ?;";
+	public void editarTarefa(String titulo, Tarefa tarefa){
+		String update_tarefa = "UPDATE tarefa SET titulo = ?, descricao = ?, tags = ?, prioridade = ?, data_tarefa = ? WHERE titulo = ?;";
 		
 		try {
 			conexao = FabricaDeConexao.getConnection();
@@ -100,7 +102,9 @@ public class Agenda {
 			stmt.setString(3, tarefa.getTags());
 			stmt.setInt(4, tarefa.getPrioridade());
 			stmt.setString(5, tarefa.getData());
-			stmt.setString(6, tarefa.getTitulo());
+			stmt.setString(6, titulo);
+			
+			stmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
