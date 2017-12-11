@@ -38,7 +38,7 @@ public class UsuarioDAO {
 	// Autenticar usuário!
 	public Usuario autenticar(String login, String senha){
 		Usuario user = null;
-		String pesquisarLoginESenha = "SELECT username FROM usuario WHERE username = ? AND senha = ? OR email = ? AND senha = ?;";
+		String pesquisarLoginESenha = "SELECT * FROM usuario WHERE username = ? AND senha = ? OR email = ? AND senha = ?;";
 		try {
 			Connection conexao = FabricaDeConexao.getConnection();
 			PreparedStatement verLogin = conexao.prepareStatement(pesquisarLoginESenha);

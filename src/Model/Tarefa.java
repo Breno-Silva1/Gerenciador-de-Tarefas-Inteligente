@@ -9,6 +9,7 @@ public class Tarefa {
 	private int prioridade;
 	private String data;
 	private boolean concluida;
+	private int usuario_id;
 	
 	public Tarefa() {
 		concluida = false;
@@ -106,6 +107,14 @@ public class Tarefa {
 	public String toString() {
 		return "Tarefa [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", tags=" + tags
 				+ ", prioridade=" + prioridade + ", data=" + data + ", concluida=" + concluida + "]";
+	}
+
+	public int getUsuario_id() {
+		return usuario_id;
+	}
+
+	public void setUsuario_id(int usuario_id) {
+		this.usuario_id = usuario_id;
 	}
 
 }
