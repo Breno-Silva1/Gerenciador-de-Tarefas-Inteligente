@@ -111,8 +111,20 @@ public class Agenda {
 		}
 	}
 	
-	public void concluirTarefa(){
+	public void concluirTarefa(String titulo, Usuario usuario){
+		String update_tarefa = "UPDATE tarefa SET estado = true WHERE id_usuario = ? AND titulo = ?;";
 		
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(update_tarefa);
+			stmt.setInt(1, usuario.getId());
+			stmt.setString(2, titulo);
+			
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Tarefa buscarTarefaPorTitulo(String titulo){
@@ -145,13 +157,13 @@ public class Agenda {
 	
 	//Exibir as tarefas
 	
-	public ArrayList<Tarefa> exibirTodasTarefas(int id){
+	public ArrayList<Tarefa> exibirTodasTarefas(Usuario usuario){
 		this.tarefas = new ArrayList<>();
 		String selected_tarefa = "SELECT * FROM tarefa WHERE id_usuario = ?;";
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(selected_tarefa);
-			stmt.setInt(1, id);
+			stmt.setInt(1, usuario.getId());
 			
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -163,7 +175,7 @@ public class Agenda {
 				tarefa.setPrioridade(rs.getInt("prioridade"));
 				tarefa.setData(rs.getString("data_tarefa"));
 				tarefa.setEstado(rs.getBoolean("estado"));
-				tarefa.setUsuario_id(id);
+				tarefa.setUsuario_id(usuario.getId());
 				
 				tarefas.add(tarefa);
 			}
@@ -183,7 +195,33 @@ public class Agenda {
 		return tarefas;
 	}
 	
-	public ArrayList<Tarefa> exibirTarefasConcluidas(){
+	public ArrayList<Tarefa> exibirTarefasConcluidas(Usuario usuario){
+		this.tarefas = new ArrayList<>();
+		String selected_tarefa = "SELECT * FROM tarefa WHERE id_usuario = ? AND estado = true;";
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(selected_tarefa);
+			stmt.setInt(1, usuario.getId());
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Tarefa tarefa = new Tarefa();
+				tarefa.setId(rs.getInt("id"));
+				tarefa.setTitulo(rs.getString("titulo"));
+				tarefa.setDescricao(rs.getString("descricao"));
+				tarefa.setTags(rs.getString("tags"));
+				tarefa.setPrioridade(rs.getInt("prioridade"));
+				tarefa.setData(rs.getString("data_tarefa"));
+				tarefa.setEstado(rs.getBoolean("estado"));
+				tarefa.setUsuario_id(usuario.getId());
+				
+				tarefas.add(tarefa);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return tarefas;
 	}
 	

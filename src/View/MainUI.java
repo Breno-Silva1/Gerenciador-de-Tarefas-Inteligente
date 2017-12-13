@@ -159,7 +159,7 @@ public class MainUI {
 				break;
 				
 			case 4:
-				tarefas = agenda.exibirTodasTarefas(usuario.getId());
+				tarefas = agenda.exibirTodasTarefas(usuario);
 				System.out.println("=== TAREFAS ===");
 				for (Tarefa tarefa : tarefas) {
 					System.out.println();
@@ -172,7 +172,30 @@ public class MainUI {
 					System.out.println("=============================");
 				}
 				break;
-	
+				
+			case 5:
+				tarefas = agenda.exibirTarefasConcluidas(usuario);
+				
+				for (Tarefa tarefa : tarefas) {
+					System.out.println();
+					System.out.println("Título: " + tarefa.getTitulo());
+					System.out.println("Descrição: " + tarefa.getDescricao());
+					System.out.println("Tags: " + tarefa.getTags());
+					System.out.println("Prioridade: " + tarefa.getPrioridade());
+					System.out.println("Data: " + tarefa.getData());
+					System.out.println("Estado: " + tarefa.getEstado());
+					System.out.println("=============================");
+				}
+				
+				break;
+				
+			case 6:
+				System.out.println("Digite o título da tarefa: ");
+				String tituloConcluir = scanner.nextLine();
+				tituloConcluir = scanner.nextLine().trim();
+				agenda.concluirTarefa(tituloConcluir, usuario);
+				break;
+				
 			default:
 				break;
 			}
@@ -207,5 +230,7 @@ public class MainUI {
 		System.out.println("2. Remover Tarefa");
 		System.out.println("3. Editar Tarefa");
 		System.out.println("4. Listar Tarefas");
+		System.out.println("5. Listar Tarefas Concluidas");
+		System.out.println("6. Concluir Tarefa");
 	}
 }
