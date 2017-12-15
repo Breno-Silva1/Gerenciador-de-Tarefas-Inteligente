@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastrarTarefaMeta extends JFrame {
 
@@ -52,6 +54,13 @@ public class CadastrarTarefaMeta extends JFrame {
 		body.setLayout(null);
 		
 		JButton btnVoltar = new JButton("VOLTAR");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaInicial telaInicial = new TelaInicial();
+				telaInicial.setVisible(true);
+				CadastrarTarefaMeta.this.dispose();
+			}
+		});
 		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
 		btnVoltar.setForeground(new Color(255, 255, 255));
 		btnVoltar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
@@ -66,6 +75,13 @@ public class CadastrarTarefaMeta extends JFrame {
 		body.add(lblCadastrar);
 		
 		JButton btnCadastrarMeta = new JButton("META");
+		btnCadastrarMeta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarMeta cadastrarMeta = new CadastrarMeta();
+				cadastrarMeta.setVisible(true);
+				CadastrarTarefaMeta.this.dispose();
+			}
+		});
 		btnCadastrarMeta.setFocusable(false);
 		btnCadastrarMeta.setForeground(new Color(255, 255, 255));
 		btnCadastrarMeta.setBackground(new Color(0, 250, 154));
@@ -90,6 +106,13 @@ public class CadastrarTarefaMeta extends JFrame {
 		body.add(panel);
 		
 		JButton btnCadastrarTarefa = new JButton("TAREFAS");
+		btnCadastrarTarefa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarTarefa cadastrarTarefa = new CadastrarTarefa();
+				cadastrarTarefa.setVisible(true);
+				CadastrarTarefaMeta.this.dispose();
+			}
+		});
 		btnCadastrarTarefa.setFocusable(false);
 		btnCadastrarTarefa.setForeground(Color.WHITE);
 		btnCadastrarTarefa.setFont(new Font("Source Sans Pro", Font.BOLD, 15));

@@ -13,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastrarUsuario extends JFrame {
 
@@ -71,14 +73,6 @@ public class CadastrarUsuario extends JFrame {
 		campoNome.setBounds(283, 174, 420, 36);
 		body.add(campoNome);
 		campoNome.setColumns(10);
-		
-		JButton btnVoltar = new JButton("VOLTAR");
-		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
-		btnVoltar.setForeground(new Color(255, 255, 255));
-		btnVoltar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnVoltar.setBackground(Color.LIGHT_GRAY);
-		btnVoltar.setBounds(50, 495, 126, 36);
-		body.add(btnVoltar);
 		
 		JButton btnCadastrar = new JButton("CRIAR CONTA");
 		btnCadastrar.setForeground(new Color(255, 255, 255));
@@ -164,6 +158,21 @@ public class CadastrarUsuario extends JFrame {
 		lblConfirmarSenha.setFont(new Font("Source Sans Pro", Font.BOLD, 19));
 		lblConfirmarSenha.setBounds(122, 417, 170, 36);
 		body.add(lblConfirmarSenha);
+		
+		JButton btnVoltar = new JButton("VOLTAR");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarUsuario.this.dispose();
+				Login login = new Login();
+				login.setVisible(true);
+			}
+		});
+		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
+		btnVoltar.setForeground(new Color(255, 255, 255));
+		btnVoltar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnVoltar.setBackground(Color.LIGHT_GRAY);
+		btnVoltar.setBounds(50, 495, 126, 36);
+		body.add(btnVoltar);
 		
 	}
 }

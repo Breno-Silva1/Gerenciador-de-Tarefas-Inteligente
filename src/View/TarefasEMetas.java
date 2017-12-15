@@ -17,6 +17,8 @@ import java.awt.Dimension;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TarefasEMetas extends JFrame {
 
@@ -66,6 +68,13 @@ public class TarefasEMetas extends JFrame {
 		body.add(btnVoltar);
 		
 		JButton btnCadastrar = new JButton("ADICIONAR NOVA");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarTarefaMeta cadastrarTarefaMeta = new CadastrarTarefaMeta();
+				cadastrarTarefaMeta.setVisible(true);
+				TarefasEMetas.this.dispose();
+			}
+		});
 		btnCadastrar.setForeground(new Color(255, 255, 255));
 		btnCadastrar.setBackground(new Color(0, 250, 154));
 		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));

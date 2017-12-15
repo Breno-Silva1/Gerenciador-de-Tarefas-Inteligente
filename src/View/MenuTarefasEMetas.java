@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MenuTarefasEMetas extends JFrame {
 
@@ -54,6 +56,13 @@ public class MenuTarefasEMetas extends JFrame {
 		body.setLayout(null);
 		
 		JButton btnVoltar = new JButton("VOLTAR");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaInicial telaInicial = new TelaInicial();
+				telaInicial.setVisible(true);
+				MenuTarefasEMetas.this.dispose();
+			}
+		});
 		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
 		btnVoltar.setForeground(new Color(255, 255, 255));
 		btnVoltar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
@@ -62,6 +71,13 @@ public class MenuTarefasEMetas extends JFrame {
 		body.add(btnVoltar);
 		
 		JButton btnCadastrar = new JButton("VER TUDO");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TarefasEMetas tarefasEMetas = new TarefasEMetas();
+				tarefasEMetas.setVisible(true);
+				MenuTarefasEMetas.this.dispose();
+			}
+		});
 		btnCadastrar.setForeground(new Color(255, 255, 255));
 		btnCadastrar.setBackground(new Color(138, 43, 226));
 		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));

@@ -15,6 +15,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastrarMeta extends JFrame {
 
@@ -75,6 +77,13 @@ public class CadastrarMeta extends JFrame {
 		campoTitulo.setColumns(10);
 		
 		JButton btnVoltar = new JButton("VOLTAR");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarTarefaMeta cadastrarTarefaMeta = new CadastrarTarefaMeta();
+				cadastrarTarefaMeta.setVisible(true);
+				CadastrarMeta.this.dispose();
+			}
+		});
 		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
 		btnVoltar.setForeground(new Color(255, 255, 255));
 		btnVoltar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));

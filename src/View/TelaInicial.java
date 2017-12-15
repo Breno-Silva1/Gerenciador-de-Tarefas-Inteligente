@@ -8,6 +8,10 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+
+import Controller.Agenda;
+import Model.Usuario;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +20,8 @@ import java.awt.Insets;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaInicial extends JFrame {
 
@@ -24,6 +30,8 @@ public class TelaInicial extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel body;
+	Agenda agenda = new Agenda();
+	Usuario usuario = Login.getSessao();
 
 	/**
 	 * Launch the application.
@@ -62,15 +70,31 @@ public class TelaInicial extends JFrame {
 		lblNewLabel.setBounds(232, 182, 109, 36);
 		body.add(lblNewLabel);
 		
-		JButton btnVoltar = new JButton("VOLTAR");
-		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
-		btnVoltar.setForeground(new Color(255, 255, 255));
-		btnVoltar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnVoltar.setBackground(Color.LIGHT_GRAY);
-		btnVoltar.setBounds(50, 495, 126, 36);
-		body.add(btnVoltar);
+		JButton btnSair = new JButton("SAIR");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				usuario = null;
+				Login.setSessao(usuario);
+				Login login = new Login();
+				login.setVisible(true);
+				TelaInicial.this.dispose();
+			}
+		});
+		btnSair.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
+		btnSair.setForeground(new Color(255, 255, 255));
+		btnSair.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnSair.setBackground(Color.LIGHT_GRAY);
+		btnSair.setBounds(50, 495, 126, 36);
+		body.add(btnSair);
 		
 		JButton btnCadastrar = new JButton("ADICIONAR NOVA");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarTarefaMeta cadastrarTarefaMeta = new CadastrarTarefaMeta();
+				cadastrarTarefaMeta.setVisible(true);
+				TelaInicial.this.dispose();
+			}
+		});
 		btnCadastrar.setForeground(new Color(255, 255, 255));
 		btnCadastrar.setBackground(new Color(0, 250, 154));
 		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
@@ -113,6 +137,13 @@ public class TelaInicial extends JFrame {
 		check1.setFont(new Font("Source Sans Pro", Font.PLAIN, 10));
 		
 		JButton btnVerTarefas = new JButton("VER TAREFAS");
+		btnVerTarefas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuTarefasEMetas menuTarefasEMetas = new MenuTarefasEMetas();
+				menuTarefasEMetas.setVisible(true);
+				TelaInicial.this.dispose();
+			}
+		});
 		btnVerTarefas.setForeground(Color.WHITE);
 		btnVerTarefas.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
 		btnVerTarefas.setBackground(new Color(138, 43, 226));
