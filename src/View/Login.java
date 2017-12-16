@@ -11,6 +11,7 @@ import Model.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.Color;
@@ -24,20 +25,16 @@ import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel body;
 	private JTextField campoLogin;
 	private JPasswordField campoSenha;
 	UsuarioDAO dao = new UsuarioDAO();
 	static Usuario usuario = null;
+	Icon sucesso = new ImageIcon(getClass().getResource("/img/correct_icon.png"));
+	Icon aviso = new ImageIcon(getClass().getResource("/img/warning_icon.png"));
+			
 	
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -51,9 +48,6 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
 		setTitle("Smarck | Login");
@@ -118,10 +112,10 @@ public class Login extends JFrame {
 						TelaInicial telaInicial = new TelaInicial();
 						telaInicial.setVisible(true);
 					} else {
-						JOptionPane.showMessageDialog(Login.this, "Login ou senha incorreto!");
+						JOptionPane.showMessageDialog(Login.this, "Login ou senha incorreto!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 					}
 				} else {
-					JOptionPane.showMessageDialog(Login.this, "Preencha todos os campos corretamente!");
+					JOptionPane.showMessageDialog(Login.this, "Preencha todos os campos corretamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 				}
 			}
 		});

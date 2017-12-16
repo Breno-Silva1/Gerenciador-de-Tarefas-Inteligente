@@ -16,6 +16,7 @@ import Model.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -24,9 +25,6 @@ import javax.swing.JPasswordField;
 
 public class CadastrarUsuario extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel body;
 	private JTextField campoNome;
@@ -34,12 +32,13 @@ public class CadastrarUsuario extends JFrame {
 	private JTextField campoEmail;
 	private JPasswordField campoSenha;
 	private JPasswordField campoConfirmarSenha;
+	
+	Icon sucesso = new ImageIcon(getClass().getResource("/img/correct_icon.png"));
+	Icon aviso = new ImageIcon(getClass().getResource("/img/warning_icon.png"));
+	
 	UsuarioDAO dao = new UsuarioDAO();
 	Usuario usuario = new Usuario();
-	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -53,12 +52,9 @@ public class CadastrarUsuario extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public CadastrarUsuario() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Cadastrar");
+		setTitle("Smarck | Cadastrar Usuário");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);
@@ -165,19 +161,19 @@ public class CadastrarUsuario extends JFrame {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if (campoNome.getText().equals("") || campoLogin.getText().equals("") || campoEmail.getText().equals("") || campoSenha.getText().equals("") || campoConfirmarSenha.getText().equals("")) {
-					JOptionPane.showMessageDialog(CadastrarUsuario.this, "Preencha todos os campos corretamente!");
+					JOptionPane.showMessageDialog(CadastrarUsuario.this, "Preencha todos os campos corretamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 				} else if(!campoSenha.getText().equals(campoConfirmarSenha.getText())) {
-					JOptionPane.showMessageDialog(CadastrarUsuario.this, "As senhas não coincidem!");
+					JOptionPane.showMessageDialog(CadastrarUsuario.this, "As senhas não coincidem!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 				} else if(dao.verificarEmailBD(campoEmail.getText())){
-					JOptionPane.showMessageDialog(CadastrarUsuario.this, "Email já cadastrado!");
+					JOptionPane.showMessageDialog(CadastrarUsuario.this, "Email já cadastrado!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 				} else if(dao.verificarUsernameBD(campoLogin.getText())){
-					JOptionPane.showMessageDialog(CadastrarUsuario.this, "Username já cadastrado!");
+					JOptionPane.showMessageDialog(CadastrarUsuario.this, "Username já cadastrado!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 				} else {
 					usuario = new Usuario(campoNome.getText(), campoLogin.getText(), campoEmail.getText(), campoSenha.getText());
 					if(dao.cadastrarUsuario(usuario)){
-						JOptionPane.showMessageDialog(CadastrarUsuario.this, "Usuário(a), " + campoNome.getText() + " cadastrado(a) com sucesso!");
+						JOptionPane.showMessageDialog(CadastrarUsuario.this, "Usuário(a), " + campoNome.getText() + " cadastrado(a) com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE, sucesso);
 					} else {
-						JOptionPane.showMessageDialog(CadastrarUsuario.this, "Ocorreu algum erro, tente mais tarde!");
+						JOptionPane.showMessageDialog(CadastrarUsuario.this, "Ocorreu algum erro, tente mais tarde!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 					}
 					Login login = new Login();
 					login.setVisible(true);

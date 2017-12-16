@@ -49,7 +49,7 @@ public class TarefasEMetas extends JFrame {
 	 */
 	public TarefasEMetas() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Cadastrar");
+		setTitle("Smarck | Tarefas e Metas");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);
@@ -60,6 +60,13 @@ public class TarefasEMetas extends JFrame {
 		body.setLayout(null);
 		
 		JButton btnVoltar = new JButton("VOLTAR");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuTarefasEMetas menu = new MenuTarefasEMetas();
+				menu.setVisible(true);
+				TarefasEMetas.this.dispose();
+			}
+		});
 		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
 		btnVoltar.setForeground(new Color(255, 255, 255));
 		btnVoltar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));

@@ -16,10 +16,13 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+
 import com.toedter.calendar.JDateChooser;
 
 import Controller.Agenda;
 import Model.Tarefa;
+import Model.Tipo;
 import Model.Usuario;
 
 import java.awt.event.ActionListener;
@@ -34,8 +37,24 @@ public class CadastrarTarefa extends JFrame {
 	private JTextField campoTitulo;
 	private JTextField campoDescricao;
 	private JTextField campoTags;
+	
+	Icon sucesso = new ImageIcon(getClass().getResource("/img/correct_icon.png"));
+	Icon aviso = new ImageIcon(getClass().getResource("/img/warning_icon.png"));
+	
 	Agenda agenda = new Agenda();
 	Usuario usuario = Login.getSessao();
+	
+	//TIPOS:
+	Tipo arte = new Tipo("Arte");
+	Tipo comercio = new Tipo("Comércio");
+	Tipo diversao = new Tipo("Diversão");
+	Tipo escola = new Tipo("Escola");
+	Tipo gastronomia = new Tipo("Gastronomia");
+	Tipo informatica = new Tipo("Informática");
+	Tipo literatura = new Tipo("Literatura");
+	Tipo trabalho = new Tipo("Trabalho");
+	Tipo viajem = new Tipo("Viajem");
+	Tipo outro = new Tipo("Outro");
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -53,7 +72,7 @@ public class CadastrarTarefa extends JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CadastrarTarefa() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Cadastrar");
+		setTitle("Smarck | Cadastrar Tarefa");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);
@@ -202,7 +221,7 @@ public class CadastrarTarefa extends JFrame {
 				String data = df.format(data_tarefa.getDate());
 				
 				if(campoTitulo.getText().equals("") || campoDescricao.getText().equals("") || campoTags.getText().equals("") || data_tarefa.getDate() == null) {	
-					JOptionPane.showMessageDialog(CadastrarTarefa.this, "Preencha todos os campos corretamente!");
+					JOptionPane.showMessageDialog(CadastrarTarefa.this, "Preencha todos os campos corretamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 				} else {
 					if (dataDeHoje.before(data_tarefa.getDate()) || dataHoje.equals(data)) {
 						
@@ -220,9 +239,30 @@ public class CadastrarTarefa extends JFrame {
 						
 						Tarefa tarefa = new Tarefa(campoTitulo.getText().trim(), campoDescricao.getText().trim(), campoTags.getText().trim(), prioridade, data);
 						
+						if (comboBoxTipo.getSelectedItem().equals("Arte")) 
+							arte.adicionarTarefa(tarefa);
+						else if (comboBoxTipo.getSelectedItem().equals("Comércio")) 
+							comercio.adicionarTarefa(tarefa);
+						else if (comboBoxTipo.getSelectedItem().equals("Diversão")) 
+							diversao.adicionarTarefa(tarefa);
+						else if (comboBoxTipo.getSelectedItem().equals("Escola")) 
+							escola.adicionarTarefa(tarefa);
+						else if (comboBoxTipo.getSelectedItem().equals("Gastronomia")) 
+							gastronomia.adicionarTarefa(tarefa);
+						else if (comboBoxTipo.getSelectedItem().equals("Informática")) 
+							informatica.adicionarTarefa(tarefa);
+						else if (comboBoxTipo.getSelectedItem().equals("Literatura")) 
+							literatura.adicionarTarefa(tarefa);
+						else if (comboBoxTipo.getSelectedItem().equals("Trabalho")) 
+							trabalho.adicionarTarefa(tarefa);
+						else if (comboBoxTipo.getSelectedItem().equals("Viajem")) 
+							viajem.adicionarTarefa(tarefa);
+						else if (comboBoxTipo.getSelectedItem().equals("Outro")) 
+							outro.adicionarTarefa(tarefa);
+						
 						if(usuario != null){
 							if(agenda.cadastrarTarefa(tarefa, usuario)){
-								JOptionPane.showMessageDialog(CadastrarTarefa.this, "Tarefa cadastrada com sucesso!");
+								JOptionPane.showMessageDialog(CadastrarTarefa.this, "Tarefa cadastrada com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE, sucesso);
 								campoTitulo.setText("");
 								campoDescricao.setText("");
 								campoTags.setText("");
@@ -232,11 +272,11 @@ public class CadastrarTarefa extends JFrame {
 							}
 							
 						}else{
-							JOptionPane.showMessageDialog(CadastrarTarefa.this, "Sessão do usuário encerrada!");
+							JOptionPane.showMessageDialog(CadastrarTarefa.this, "Sessão do usuário encerrada!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 						}
 						
 					}	else {
-						JOptionPane.showMessageDialog(CadastrarTarefa.this, "Selecione uma data válida!");
+						JOptionPane.showMessageDialog(CadastrarTarefa.this, "Selecione uma data válida!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 					}
 				}
 			}

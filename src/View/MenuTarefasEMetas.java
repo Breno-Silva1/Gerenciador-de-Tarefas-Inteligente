@@ -17,15 +17,9 @@ import java.awt.event.ActionEvent;
 
 public class MenuTarefasEMetas extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel body;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -38,13 +32,10 @@ public class MenuTarefasEMetas extends JFrame {
 			}
 		});
 	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public MenuTarefasEMetas() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Cadastrar");
+		setTitle("Smarck | Menu Tarefas e Metas");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);
@@ -106,36 +97,52 @@ public class MenuTarefasEMetas extends JFrame {
 		panel.setBounds(0, 558, 894, 36);
 		body.add(panel);
 		
-		JButton btnPendentes = new JButton("TAREFAS");
-		btnPendentes.setFocusable(false);
-		btnPendentes.setForeground(Color.WHITE);
-		btnPendentes.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnPendentes.setBackground(new Color(102, 205, 170));
-		btnPendentes.setBounds(287, 258, 145, 45);
-		body.add(btnPendentes);
+		JButton btnTarefas = new JButton("TAREFAS");
+		btnTarefas.setFocusable(false);
+		btnTarefas.setForeground(Color.WHITE);
+		btnTarefas.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnTarefas.setBackground(new Color(138, 43, 226));
+		btnTarefas.setBounds(230, 248, 200, 45);
+		body.add(btnTarefas);
 		
 		JButton btnMetas = new JButton("METAS");
 		btnMetas.setFocusable(false);
 		btnMetas.setForeground(Color.WHITE);
 		btnMetas.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnMetas.setBackground(new Color(102, 205, 170));
-		btnMetas.setBounds(461, 258, 145, 45);
+		btnMetas.setBackground(new Color(0, 250, 154));
+		btnMetas.setBounds(459, 248, 200, 45);
 		body.add(btnMetas);
 		
-		JButton btnConcluidas = new JButton("PENDENTES");
-		btnConcluidas.setFocusable(false);
-		btnConcluidas.setForeground(Color.WHITE);
-		btnConcluidas.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnConcluidas.setBackground(new Color(102, 205, 170));
-		btnConcluidas.setBounds(461, 321, 145, 46);
-		body.add(btnConcluidas);
+		JButton btnTPendentes = new JButton("TAREFAS PENDENTES");
+		btnTPendentes.setFocusable(false);
+		btnTPendentes.setForeground(Color.WHITE);
+		btnTPendentes.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnTPendentes.setBackground(new Color(138, 43, 226));
+		btnTPendentes.setBounds(230, 374, 200, 46);
+		body.add(btnTPendentes);
 		
-		JButton btnPendentes_1 = new JButton("CONCLU\u00CDDAS");
-		btnPendentes_1.setFocusable(false);
-		btnPendentes_1.setForeground(Color.WHITE);
-		btnPendentes_1.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnPendentes_1.setBackground(new Color(102, 205, 170));
-		btnPendentes_1.setBounds(287, 321, 145, 46);
-		body.add(btnPendentes_1);
+		JButton btnTConcluidas = new JButton("TAREFAS CONCLU\u00CDDAS");
+		btnTConcluidas.setFocusable(false);
+		btnTConcluidas.setForeground(Color.WHITE);
+		btnTConcluidas.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnTConcluidas.setBackground(new Color(138, 43, 226));
+		btnTConcluidas.setBounds(230, 311, 200, 46);
+		body.add(btnTConcluidas);
+		
+		JButton btnMPendentes = new JButton("METAS PENDENTES");
+		btnMPendentes.setForeground(Color.WHITE);
+		btnMPendentes.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnMPendentes.setFocusable(false);
+		btnMPendentes.setBackground(new Color(0, 250, 154));
+		btnMPendentes.setBounds(459, 374, 200, 46);
+		body.add(btnMPendentes);
+		
+		JButton btnMConcluidas = new JButton("METAS CONCLU\u00CDDAS");
+		btnMConcluidas.setForeground(Color.WHITE);
+		btnMConcluidas.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnMConcluidas.setFocusable(false);
+		btnMConcluidas.setBackground(new Color(0, 250, 154));
+		btnMConcluidas.setBounds(459, 311, 200, 46);
+		body.add(btnMConcluidas);
 	}
 }

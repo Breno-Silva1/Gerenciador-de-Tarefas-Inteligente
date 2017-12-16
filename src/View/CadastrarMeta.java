@@ -17,10 +17,13 @@ import javax.swing.border.EmptyBorder;
 
 import Controller.Agenda;
 import Model.Tarefa;
+import Model.Tipo;
 import Model.Usuario;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -31,8 +34,24 @@ public class CadastrarMeta extends JFrame {
 	private JTextField campoTitulo;
 	private JTextField campoDescricao;
 	private JTextField campoTags;
+	
+	Icon sucesso = new ImageIcon(getClass().getResource("/img/correct_icon.png"));
+	Icon aviso = new ImageIcon(getClass().getResource("/img/warning_icon.png"));
+	
 	Agenda agenda = new Agenda();
 	Usuario usuario = Login.getSessao();
+
+	//TIPOS:
+	Tipo arte = new Tipo("Arte");
+	Tipo comercio = new Tipo("Comércio");
+	Tipo diversao = new Tipo("Diversão");
+	Tipo escola = new Tipo("Escola");
+	Tipo gastronomia = new Tipo("Gastronomia");
+	Tipo informatica = new Tipo("Informática");
+	Tipo literatura = new Tipo("Literatura");
+	Tipo trabalho = new Tipo("Trabalho");
+	Tipo viajem = new Tipo("Viajem");
+	Tipo outro = new Tipo("Outro");
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -50,7 +69,7 @@ public class CadastrarMeta extends JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CadastrarMeta() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Cadastrar");
+		setTitle("Smarck | Cadastrar Meta");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);
@@ -182,7 +201,7 @@ public class CadastrarMeta extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(campoTitulo.getText().equals("") || campoDescricao.getText().equals("") || campoTags.getText().equals("")) {	
-					JOptionPane.showMessageDialog(CadastrarMeta.this, "Preencha todos os campos corretamente!");
+					JOptionPane.showMessageDialog(CadastrarMeta.this, "Preencha todos os campos corretamente!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 				} else {
 					int prioridade = 5;
 					if (comboBoxPrioridade.getSelectedItem().equals("Muito Alta")) 
@@ -198,16 +217,37 @@ public class CadastrarMeta extends JFrame {
 					
 					Tarefa meta = new Tarefa(campoTitulo.getText().trim(), campoDescricao.getText().trim(), campoTags.getText().trim(), prioridade);
 					
+					if (comboBoxTipo.getSelectedItem().equals("Arte")) 
+						arte.adicionarTarefa(meta);
+					else if (comboBoxTipo.getSelectedItem().equals("Comércio")) 
+						comercio.adicionarTarefa(meta);
+					else if (comboBoxTipo.getSelectedItem().equals("Diversão")) 
+						diversao.adicionarTarefa(meta);
+					else if (comboBoxTipo.getSelectedItem().equals("Escola")) 
+						escola.adicionarTarefa(meta);
+					else if (comboBoxTipo.getSelectedItem().equals("Gastronomia")) 
+						gastronomia.adicionarTarefa(meta);
+					else if (comboBoxTipo.getSelectedItem().equals("Informática")) 
+						informatica.adicionarTarefa(meta);
+					else if (comboBoxTipo.getSelectedItem().equals("Literatura")) 
+						literatura.adicionarTarefa(meta);
+					else if (comboBoxTipo.getSelectedItem().equals("Trabalho")) 
+						trabalho.adicionarTarefa(meta);
+					else if (comboBoxTipo.getSelectedItem().equals("Viajem")) 
+						viajem.adicionarTarefa(meta);
+					else if (comboBoxTipo.getSelectedItem().equals("Outro")) 
+						outro.adicionarTarefa(meta);
+					
 					if(usuario != null){
 						agenda.cadastrarMeta(meta, usuario);
-						JOptionPane.showMessageDialog(CadastrarMeta.this, "Meta cadastrada com sucesso!");
+						JOptionPane.showMessageDialog(CadastrarMeta.this, "Meta cadastrada com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE, sucesso);
 						campoTitulo.setText("");
 						campoDescricao.setText("");
 						campoTags.setText("");
 						comboBoxPrioridade.setSelectedIndex(0);
 						comboBoxTipo.setSelectedIndex(0);
 					}else{
-						JOptionPane.showMessageDialog(CadastrarMeta.this, "Sessão do usuário encerrada!");
+						JOptionPane.showMessageDialog(CadastrarMeta.this, "Sessão do usuário encerrada!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 					}
 				}
 			}
