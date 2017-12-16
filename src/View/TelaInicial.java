@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-import Controller.Agenda;
 import Model.Usuario;
 
 import javax.swing.JLabel;
@@ -25,17 +24,10 @@ import java.awt.event.ActionEvent;
 
 public class TelaInicial extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel body;
-	Agenda agenda = new Agenda();
 	Usuario usuario = Login.getSessao();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -49,9 +41,6 @@ public class TelaInicial extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaInicial() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
 		setTitle("Smarck | Cadastrar");

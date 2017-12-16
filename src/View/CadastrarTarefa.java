@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
@@ -16,23 +17,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
+
+import Controller.Agenda;
+import Model.Tarefa;
+import Model.Usuario;
+
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class CadastrarTarefa extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel body;
 	private JTextField campoTitulo;
 	private JTextField campoDescricao;
 	private JTextField campoTags;
+	Agenda agenda = new Agenda();
+	Usuario usuario = Login.getSessao();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -46,9 +50,6 @@ public class CadastrarTarefa extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CadastrarTarefa() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
@@ -91,13 +92,6 @@ public class CadastrarTarefa extends JFrame {
 		btnVoltar.setBackground(Color.LIGHT_GRAY);
 		btnVoltar.setBounds(50, 495, 126, 36);
 		body.add(btnVoltar);
-		
-		JButton btnCadastrar = new JButton("CADASTRAR");
-		btnCadastrar.setForeground(new Color(255, 255, 255));
-		btnCadastrar.setBackground(new Color(138, 43, 226));
-		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnCadastrar.setBounds(723, 495, 126, 36);
-		body.add(btnCadastrar);
 		
 		JLabel logo_reduced = new JLabel("");
 		logo_reduced.setIcon(new ImageIcon(CadastrarUsuario.class.getResource("/img/logo_reduced.png")));
@@ -180,6 +174,8 @@ public class CadastrarTarefa extends JFrame {
 		data_tarefa.getCalendarButton().setIcon(new ImageIcon(CadastrarTarefa.class.getResource("/img/calendar_icon.png")));
 		data_tarefa.setBackground(Color.LIGHT_GRAY);
 		data_tarefa.setBounds(283, 358, 154, 36);
+		Date dataDeHoje = new Date();
+		data_tarefa.setMinSelectableDate(dataDeHoje);
 		body.add(data_tarefa);
 		
 		JLabel lblTipo = new JLabel("Tipo:");
@@ -196,5 +192,59 @@ public class CadastrarTarefa extends JFrame {
 		comboBoxTipo.setBackground(Color.LIGHT_GRAY);
 		comboBoxTipo.setBounds(577, 358, 126, 36);
 		body.add(comboBoxTipo);
+		
+		JButton btnCadastrar = new JButton("CADASTRAR");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Date dataDeHoje = new Date();
+				DateFormat df = DateFormat.getDateInstance();
+				String dataHoje = df.format(dataDeHoje);
+				String data = df.format(data_tarefa.getDate());
+				
+				if(campoTitulo.getText().equals("") || campoDescricao.getText().equals("") || campoTags.getText().equals("") || data_tarefa.getDate() == null) {	
+					JOptionPane.showMessageDialog(CadastrarTarefa.this, "Preencha todos os campos corretamente!");
+				} else {
+					if (dataDeHoje.before(data_tarefa.getDate()) || dataHoje.equals(data)) {
+						
+						int prioridade = 5;
+						if (comboBoxPrioridade.getSelectedItem().equals("Muito Alta")) 
+							prioridade = 5;
+						 else if (comboBoxPrioridade.getSelectedItem().equals("Alta")) 
+							prioridade = 4;
+						 else if (comboBoxPrioridade.getSelectedItem().equals("Média")) 
+							prioridade = 3;
+						 else if (comboBoxPrioridade.getSelectedItem().equals("Baixa"))
+							prioridade = 2;
+						 else if (comboBoxPrioridade.getSelectedItem().equals("Muito Baixa")) 
+							prioridade = 1;
+						
+						Tarefa tarefa = new Tarefa(campoTitulo.getText().trim(), campoDescricao.getText().trim(), campoTags.getText().trim(), prioridade, data);
+						
+						if(usuario != null){
+							if(agenda.cadastrarTarefa(tarefa, usuario)){
+								JOptionPane.showMessageDialog(CadastrarTarefa.this, "Tarefa cadastrada com sucesso!");
+								campoTitulo.setText("");
+								campoDescricao.setText("");
+								campoTags.setText("");
+								comboBoxPrioridade.setSelectedIndex(0);
+								comboBoxTipo.setSelectedIndex(0);
+								data_tarefa.setDate(null);
+							}
+							
+						}else{
+							JOptionPane.showMessageDialog(CadastrarTarefa.this, "Sessão do usuário encerrada!");
+						}
+						
+					}	else {
+						JOptionPane.showMessageDialog(CadastrarTarefa.this, "Selecione uma data válida!");
+					}
+				}
+			}
+		});
+		btnCadastrar.setForeground(new Color(255, 255, 255));
+		btnCadastrar.setBackground(new Color(138, 43, 226));
+		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnCadastrar.setBounds(723, 495, 126, 36);
+		body.add(btnCadastrar);
 	}
 }

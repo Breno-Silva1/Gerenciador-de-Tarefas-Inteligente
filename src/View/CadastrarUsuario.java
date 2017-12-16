@@ -10,11 +10,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+
+import Controller.UsuarioDAO;
+import Model.Usuario;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class CadastrarUsuario extends JFrame {
 
@@ -26,9 +32,11 @@ public class CadastrarUsuario extends JFrame {
 	private JTextField campoNome;
 	private JTextField campoLogin;
 	private JTextField campoEmail;
-	private JTextField campoSenha;
-	private JTextField campoConfirmarSenha;
-
+	private JPasswordField campoSenha;
+	private JPasswordField campoConfirmarSenha;
+	UsuarioDAO dao = new UsuarioDAO();
+	Usuario usuario = new Usuario();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -74,13 +82,6 @@ public class CadastrarUsuario extends JFrame {
 		body.add(campoNome);
 		campoNome.setColumns(10);
 		
-		JButton btnCadastrar = new JButton("CRIAR CONTA");
-		btnCadastrar.setForeground(new Color(255, 255, 255));
-		btnCadastrar.setBackground(new Color(138, 43, 226));
-		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnCadastrar.setBounds(723, 495, 126, 36);
-		body.add(btnCadastrar);
-		
 		JLabel logo_reduced = new JLabel("");
 		logo_reduced.setIcon(new ImageIcon(CadastrarUsuario.class.getResource("/img/logo_reduced.png")));
 		logo_reduced.setBounds(50, 35, 233, 69);
@@ -113,7 +114,7 @@ public class CadastrarUsuario extends JFrame {
 		campoEmail.setBounds(283, 292, 420, 36);
 		body.add(campoEmail);
 		
-		campoSenha = new JTextField();
+		campoSenha = new JPasswordField();
 		campoSenha.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
 		campoSenha.setColumns(10);
 		campoSenha.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY));
@@ -121,7 +122,7 @@ public class CadastrarUsuario extends JFrame {
 		campoSenha.setBounds(283, 359, 420, 36);
 		body.add(campoSenha);
 		
-		campoConfirmarSenha = new JTextField();
+		campoConfirmarSenha = new JPasswordField();
 		campoConfirmarSenha.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
 		campoConfirmarSenha.setColumns(10);
 		campoConfirmarSenha.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY, Color.LIGHT_GRAY));
@@ -150,14 +151,45 @@ public class CadastrarUsuario extends JFrame {
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setForeground(new Color(138, 43, 226));
 		lblSenha.setFont(new Font("Source Sans Pro", Font.BOLD, 19));
-		lblSenha.setBounds(215, 358, 77, 36);
+		lblSenha.setBounds(206, 358, 77, 36);
 		body.add(lblSenha);
 		
 		JLabel lblConfirmarSenha = new JLabel("Confirmar Senha:");
 		lblConfirmarSenha.setForeground(new Color(138, 43, 226));
 		lblConfirmarSenha.setFont(new Font("Source Sans Pro", Font.BOLD, 19));
-		lblConfirmarSenha.setBounds(122, 417, 170, 36);
+		lblConfirmarSenha.setBounds(114, 417, 178, 36);
 		body.add(lblConfirmarSenha);
+		
+		JButton btnCadastrar = new JButton("CRIAR CONTA");
+		btnCadastrar.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				if (campoNome.getText().equals("") || campoLogin.getText().equals("") || campoEmail.getText().equals("") || campoSenha.getText().equals("") || campoConfirmarSenha.getText().equals("")) {
+					JOptionPane.showMessageDialog(CadastrarUsuario.this, "Preencha todos os campos corretamente!");
+				} else if(!campoSenha.getText().equals(campoConfirmarSenha.getText())) {
+					JOptionPane.showMessageDialog(CadastrarUsuario.this, "As senhas não coincidem!");
+				} else if(dao.verificarEmailBD(campoEmail.getText())){
+					JOptionPane.showMessageDialog(CadastrarUsuario.this, "Email já cadastrado!");
+				} else if(dao.verificarUsernameBD(campoLogin.getText())){
+					JOptionPane.showMessageDialog(CadastrarUsuario.this, "Username já cadastrado!");
+				} else {
+					usuario = new Usuario(campoNome.getText(), campoLogin.getText(), campoEmail.getText(), campoSenha.getText());
+					if(dao.cadastrarUsuario(usuario)){
+						JOptionPane.showMessageDialog(CadastrarUsuario.this, "Usuário(a), " + campoNome.getText() + " cadastrado(a) com sucesso!");
+					} else {
+						JOptionPane.showMessageDialog(CadastrarUsuario.this, "Ocorreu algum erro, tente mais tarde!");
+					}
+					Login login = new Login();
+					login.setVisible(true);
+					CadastrarUsuario.this.dispose();
+				}
+			}
+		});
+		btnCadastrar.setForeground(new Color(255, 255, 255));
+		btnCadastrar.setBackground(new Color(138, 43, 226));
+		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnCadastrar.setBounds(723, 495, 126, 36);
+		body.add(btnCadastrar);
 		
 		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.addActionListener(new ActionListener() {

@@ -9,10 +9,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+
+import Controller.Agenda;
+import Model.Tarefa;
+import Model.Usuario;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -20,18 +26,14 @@ import java.awt.event.ActionEvent;
 
 public class CadastrarMeta extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel body;
 	private JTextField campoTitulo;
 	private JTextField campoDescricao;
 	private JTextField campoTags;
+	Agenda agenda = new Agenda();
+	Usuario usuario = Login.getSessao();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,9 +47,6 @@ public class CadastrarMeta extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CadastrarMeta() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
@@ -91,12 +90,7 @@ public class CadastrarMeta extends JFrame {
 		btnVoltar.setBounds(50, 495, 126, 36);
 		body.add(btnVoltar);
 		
-		JButton btnCadastrar = new JButton("CADASTRAR");
-		btnCadastrar.setForeground(new Color(255, 255, 255));
-		btnCadastrar.setBackground(new Color(138, 43, 226));
-		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnCadastrar.setBounds(723, 495, 126, 36);
-		body.add(btnCadastrar);
+		
 		
 		JLabel logo_reduced = new JLabel("");
 		logo_reduced.setIcon(new ImageIcon(CadastrarUsuario.class.getResource("/img/logo_reduced.png")));
@@ -183,5 +177,46 @@ public class CadastrarMeta extends JFrame {
 		comboBoxTipo.setBackground(Color.LIGHT_GRAY);
 		comboBoxTipo.setBounds(283, 358, 420, 36);
 		body.add(comboBoxTipo);
+		
+		JButton btnCadastrar = new JButton("CADASTRAR");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(campoTitulo.getText().equals("") || campoDescricao.getText().equals("") || campoTags.getText().equals("")) {	
+					JOptionPane.showMessageDialog(CadastrarMeta.this, "Preencha todos os campos corretamente!");
+				} else {
+					int prioridade = 5;
+					if (comboBoxPrioridade.getSelectedItem().equals("Muito Alta")) 
+						prioridade = 5;
+					 else if (comboBoxPrioridade.getSelectedItem().equals("Alta")) 
+						prioridade = 4;
+					 else if (comboBoxPrioridade.getSelectedItem().equals("Média")) 
+						prioridade = 3;
+					 else if (comboBoxPrioridade.getSelectedItem().equals("Baixa"))
+						prioridade = 2;
+					 else if (comboBoxPrioridade.getSelectedItem().equals("Muito Baixa")) 
+						prioridade = 1;
+					
+					Tarefa meta = new Tarefa(campoTitulo.getText().trim(), campoDescricao.getText().trim(), campoTags.getText().trim(), prioridade);
+					
+					if(usuario != null){
+						agenda.cadastrarMeta(meta, usuario);
+						JOptionPane.showMessageDialog(CadastrarMeta.this, "Meta cadastrada com sucesso!");
+						campoTitulo.setText("");
+						campoDescricao.setText("");
+						campoTags.setText("");
+						comboBoxPrioridade.setSelectedIndex(0);
+						comboBoxTipo.setSelectedIndex(0);
+					}else{
+						JOptionPane.showMessageDialog(CadastrarMeta.this, "Sessão do usuário encerrada!");
+					}
+				}
+			}
+		});
+		btnCadastrar.setForeground(new Color(255, 255, 255));
+		btnCadastrar.setBackground(new Color(138, 43, 226));
+		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnCadastrar.setBounds(723, 495, 126, 36);
+		body.add(btnCadastrar);
+		
 	}
 }

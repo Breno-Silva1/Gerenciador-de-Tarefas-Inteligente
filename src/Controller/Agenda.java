@@ -236,7 +236,7 @@ public class Agenda {
 		return tarefas;
 	}
 	
-	public ArrayList<Tarefa> exibirTodasMeetas(Usuario usuario){
+	public ArrayList<Tarefa> exibirTodasMetas(Usuario usuario){
 		this.tarefas = new ArrayList<>();
 		String selected_meta = "SELECT * FROM meta WHERE id_usuario = ?;";
 		try {

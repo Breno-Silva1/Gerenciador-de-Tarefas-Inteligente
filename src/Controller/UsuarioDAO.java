@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Model.Usuario;
 
@@ -49,7 +50,6 @@ public class UsuarioDAO {
 			
 			ResultSet rs = verLogin.executeQuery();
 			
-			
 			if (rs.next()) {
 				int id = rs.getInt("id");
 				String nome = rs.getString("nome");
@@ -65,5 +65,53 @@ public class UsuarioDAO {
 		}
 		return user;
 	}
+	
+	public boolean verificarEmailBD(String email){
+		boolean retorno = false;
+		String emails = "SELECT email FROM usuario;";
+		ArrayList<String> emailsCadastrados = new ArrayList<>();
+		try {
+			Connection conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(emails);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				emailsCadastrados.add(rs.getString("email")); 
+			}
+			for (String e : emailsCadastrados) {
+				if (e.equals(email)) {
+					retorno = true;
+				}
+			}
+			stmt.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return retorno;
+	}
+	public boolean verificarUsernameBD(String username){
+		boolean retorno = false;
+		String usernames = "SELECT username FROM usuario;";
+		ArrayList<String> usernamesCadastrados = new ArrayList<>();
+		try {
+			Connection conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(usernames);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				usernamesCadastrados.add(rs.getString("username")); 
+			}
+			for (String u : usernamesCadastrados) {
+				if (u.equals(username)) {
+					retorno = true;
+				}
+			}
+			stmt.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return retorno;
+	}
+	
 	
 }

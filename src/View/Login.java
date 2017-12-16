@@ -118,7 +118,7 @@ public class Login extends JFrame {
 						TelaInicial telaInicial = new TelaInicial();
 						telaInicial.setVisible(true);
 					} else {
-						JOptionPane.showMessageDialog(Login.this, "Usuário não cadastrado!");
+						JOptionPane.showMessageDialog(Login.this, "Login ou senha incorreto!");
 					}
 				} else {
 					JOptionPane.showMessageDialog(Login.this, "Preencha todos os campos corretamente!");
