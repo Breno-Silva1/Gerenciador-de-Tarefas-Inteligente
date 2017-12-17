@@ -84,7 +84,7 @@ public class CadastrarTarefaMeta extends JFrame {
 		});
 		btnCadastrarMeta.setFocusable(false);
 		btnCadastrarMeta.setForeground(new Color(255, 255, 255));
-		btnCadastrarMeta.setBackground(new Color(0, 250, 154));
+		btnCadastrarMeta.setBackground(new Color(102, 205, 170));
 		btnCadastrarMeta.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
 		btnCadastrarMeta.setBounds(339, 298, 225, 54);
 		body.add(btnCadastrarMeta);

@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.awt.event.ActionEvent;
 
 public class TarefasEMetas extends JFrame {
@@ -62,9 +63,14 @@ public class TarefasEMetas extends JFrame {
 		JButton btnVoltar = new JButton("VOLTAR");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuTarefasEMetas menu = new MenuTarefasEMetas();
-				menu.setVisible(true);
-				TarefasEMetas.this.dispose();
+				MenuTarefasEMetas menu;
+				try {
+					menu = new MenuTarefasEMetas();
+					menu.setVisible(true);
+					TarefasEMetas.this.dispose();
+				} catch (PropertyVetoException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
@@ -83,7 +89,7 @@ public class TarefasEMetas extends JFrame {
 			}
 		});
 		btnCadastrar.setForeground(new Color(255, 255, 255));
-		btnCadastrar.setBackground(new Color(0, 250, 154));
+		btnCadastrar.setBackground(new Color(102, 205, 170));
 		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
 		btnCadastrar.setBounds(691, 495, 158, 36);
 		body.add(btnCadastrar);

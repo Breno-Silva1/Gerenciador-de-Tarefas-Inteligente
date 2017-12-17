@@ -20,6 +20,7 @@ import java.awt.Dimension;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -88,7 +89,7 @@ public class TelaInicial extends JFrame {
 			}
 		});
 		btnCadastrar.setForeground(new Color(255, 255, 255));
-		btnCadastrar.setBackground(new Color(0, 250, 154));
+		btnCadastrar.setBackground(new Color(102, 205, 170));
 		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
 		btnCadastrar.setBounds(691, 495, 158, 36);
 		body.add(btnCadastrar);
@@ -131,9 +132,14 @@ public class TelaInicial extends JFrame {
 		JButton btnVerTarefas = new JButton("VER TAREFAS");
 		btnVerTarefas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MenuTarefasEMetas menuTarefasEMetas = new MenuTarefasEMetas();
-				menuTarefasEMetas.setVisible(true);
-				TelaInicial.this.dispose();
+				MenuTarefasEMetas menuTarefasEMetas;
+				try {
+					menuTarefasEMetas = new MenuTarefasEMetas();
+					menuTarefasEMetas.setVisible(true);
+					TelaInicial.this.dispose();
+				} catch (PropertyVetoException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnVerTarefas.setForeground(Color.WHITE);
