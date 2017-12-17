@@ -9,6 +9,7 @@ public class Tarefa {
 	private int prioridade;
 	private String data;
 	private boolean concluida;
+	private int tipo;
 	private int usuario_id;
 	
 	public Tarefa() {
@@ -35,6 +36,18 @@ public class Tarefa {
 		concluida = false;
 	}
 	
+	//CONSTRUTOR PARA INTERFACE
+	public Tarefa(String titulo, String descricao, String tags, int prioridade, String data, int tipo) {
+		super();
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.tags = tags;
+		this.prioridade = prioridade;
+		this.data = data;
+		concluida = false;
+		this.tipo = tipo;
+	}
+	
 	//CONSTRUTOR PARA PEGAR DO BD
 	public Tarefa(int id, String titulo, String descricao, String tags, int prioridade, String data, boolean concluida) {
 		super();
@@ -46,6 +59,17 @@ public class Tarefa {
 		this.data = data;
 		this.concluida = concluida;
 	}
+	
+	//CONSTRUTOR PARA PEGAR DO BD
+		public Tarefa(int id, String titulo, String descricao, String tags, int prioridade, boolean concluida) {
+			super();
+			this.id = id;
+			this.titulo = titulo;
+			this.descricao = descricao;
+			this.tags = tags;
+			this.prioridade = prioridade;
+			this.concluida = concluida;
+		}
 
 	public int getId() {
 		return id;
@@ -115,6 +139,14 @@ public class Tarefa {
 
 	public void setUsuario_id(int usuario_id) {
 		this.usuario_id = usuario_id;
+	}
+
+	public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
 	}
 
 }

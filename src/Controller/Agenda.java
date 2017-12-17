@@ -25,7 +25,7 @@ public class Agenda {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(insert_tarefa);
 
-			stmt.setString(1, umaTarefa.getTitulo());
+			stmt.setString(1, umaTarefa.getTitulo().toLowerCase());
 			stmt.setString(2, umaTarefa.getDescricao());
 			stmt.setString(3, umaTarefa.getTags());
 			stmt.setInt(4, umaTarefa.getPrioridade());
@@ -76,39 +76,41 @@ public class Agenda {
 	}
 	
 	
-	public void removerTarefa(String titulo, Usuario usuario){
+	public boolean removerTarefa(String titulo, Usuario usuario){
 		String delete_tarefa = "DELETE FROM tarefa WHERE titulo = ? AND id_usuario = ?";
-		
+		boolean retorno = false;
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(delete_tarefa);
 			stmt.setString(1, titulo);
 			stmt.setInt(2, usuario.getId());
 			stmt.executeUpdate();
-			
+			retorno = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return retorno;
 	}
 	
-	public void removerMeta(String titulo, Usuario usuario) {
+	public boolean removerMeta(String titulo, Usuario usuario) {
 		String delete_meta = "DELETE FROM meta WHERE titulo = ? AND id_usuario = ?";
-		
+		boolean retorno = false;
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(delete_meta);
 			stmt.setString(1, titulo);
 			stmt.setInt(2, usuario.getId());
 			stmt.executeUpdate();
-			
+			retorno = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return retorno;
 	}
 	
-	public void editarTarefa(String titulo, Tarefa tarefa){
-		String update_tarefa = "UPDATE tarefa SET titulo = ?, descricao = ?, tags = ?, prioridade = ?, data_tarefa = ? WHERE titulo = ?;";
-		
+	public boolean editarTarefa(Tarefa tarefa, Usuario usuario){
+		String update_tarefa = "UPDATE tarefa SET titulo = ?, descricao = ?, tags = ?, prioridade = ?, data_tarefa = ? WHERE id_usuario = ? AND id = ?;";
+		boolean retorno = false;
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(update_tarefa);
@@ -117,18 +119,21 @@ public class Agenda {
 			stmt.setString(3, tarefa.getTags());
 			stmt.setInt(4, tarefa.getPrioridade());
 			stmt.setString(5, tarefa.getData());
-			stmt.setString(6, titulo);
+			stmt.setInt(6, usuario.getId());
+			stmt.setInt(7, tarefa.getId());
 			
 			stmt.executeUpdate();
+			retorno = true;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return retorno;
 	}
 
-	public void editarMeta(String titulo, Tarefa tarefa){
-		String update_meta = "UPDATE meta SET titulo = ?, descricao = ?, tags = ?, prioridade = ? WHERE titulo = ?;";
-		
+	public boolean editarMeta(Tarefa tarefa, Usuario usuario){
+		String update_meta = "UPDATE meta SET titulo = ?, descricao = ?, tags = ?, prioridade = ? WHERE id_usuario = ? AND id = ?;";
+		boolean retorno = false;
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(update_meta);
@@ -136,17 +141,19 @@ public class Agenda {
 			stmt.setString(2, tarefa.getDescricao());
 			stmt.setString(3, tarefa.getTags());
 			stmt.setInt(4, tarefa.getPrioridade());
-			stmt.setString(5, titulo);
+			stmt.setInt(5, usuario.getId());
+			stmt.setInt(6, tarefa.getId());
 			
 			stmt.executeUpdate();
-			
+			retorno = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return retorno;
 	}
-	public void concluirTarefa(String titulo, Usuario usuario){
+	public boolean concluirTarefa(String titulo, Usuario usuario){
 		String update_tarefa = "UPDATE tarefa SET estado = true WHERE id_usuario = ? AND titulo = ?;";
-		
+		boolean retorno = false;
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(update_tarefa);
@@ -154,15 +161,16 @@ public class Agenda {
 			stmt.setString(2, titulo);
 			
 			stmt.executeUpdate();
-			
+			retorno = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return retorno;
 	}
 	
-	public void concluirMeta(String titulo, Usuario usuario){
+	public boolean concluirMeta(String titulo, Usuario usuario){
 		String update_meta = "UPDATE meta SET estado = true WHERE id_usuario = ? AND titulo = ?;";
-		
+		boolean retorno = false;
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(update_meta);
@@ -170,29 +178,61 @@ public class Agenda {
 			stmt.setString(2, titulo);
 			
 			stmt.executeUpdate();
-			
+			retorno = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return retorno;
 	}
 	
-	public Tarefa buscarTarefaPorTitulo(String titulo){
-		String selected_tarefa = "SELECT * FROM meta WHERE titulo = ?;";
+	public Tarefa buscarTarefaPorTitulo(String titulo, Usuario usuario){
+		String selected_tarefa = "SELECT * FROM tarefa WHERE titulo = ? AND id_usuario = ?;";
 		try {
 			conexao = FabricaDeConexao.getConnection();
 			PreparedStatement stmt = conexao.prepareStatement(selected_tarefa);
 			stmt.setString(1, titulo);
+			stmt.setInt(2, usuario.getId());
 
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				int id = rs.getInt("id");
 				String tituloBD = rs.getString("titulo");
 				String descricao = rs.getString("descricao");
-				String tags = rs.getString("descricao");
+				String tags = rs.getString("tags");
 				int prioridade = rs.getInt("prioridade");
 				String data = rs.getString("descricao");
 				boolean concluida = rs.getBoolean("estado");
-				return new Tarefa(id, tituloBD, descricao, tags, prioridade, data, concluida);
+				Tarefa tarefa = new Tarefa(id, tituloBD, descricao, tags, prioridade, data, concluida);
+				return tarefa;
+			}
+			
+			stmt.close();
+			conexao.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Tarefa buscarMetaPorTitulo(String titulo, Usuario usuario){
+		String selected_tarefa = "SELECT * FROM meta WHERE titulo = ? AND id_usuario = ?;";
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(selected_tarefa);
+			stmt.setString(1, titulo);
+			stmt.setInt(2, usuario.getId());
+
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				int id = rs.getInt("id");
+				String tituloBD = rs.getString("titulo");
+				String descricao = rs.getString("descricao");
+				String tags = rs.getString("tags");
+				int prioridade = rs.getInt("prioridade");
+				boolean concluida = rs.getBoolean("estado");
+				Tarefa meta = new Tarefa(id, tituloBD, descricao, tags, prioridade, concluida);
+				return meta;
 			}
 			
 			stmt.close();
@@ -320,6 +360,63 @@ public class Agenda {
 				tarefa.setUsuario_id(usuario.getId());
 				
 				tarefas.add(tarefa);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return tarefas;
+	}
+	public ArrayList<Tarefa> exibirMetasNaoCumpridas(Usuario usuario){
+		this.tarefas = new ArrayList<>();
+		String selected_meta = "SELECT * FROM meta WHERE id_usuario = ? AND estado = false;";
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(selected_meta);
+			stmt.setInt(1, usuario.getId());
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Tarefa meta = new Tarefa();
+				meta.setId(rs.getInt("id"));
+				meta.setTitulo(rs.getString("titulo"));
+				meta.setDescricao(rs.getString("descricao"));
+				meta.setTags(rs.getString("tags"));
+				meta.setPrioridade(rs.getInt("prioridade"));
+				meta.setEstado(rs.getBoolean("estado"));
+				meta.setUsuario_id(usuario.getId());
+				
+				tarefas.add(meta);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return tarefas;
+	}
+	
+	public ArrayList<Tarefa> exibirMetasConcluidas(Usuario usuario){
+		this.tarefas = new ArrayList<>();
+		String selected_meta = "SELECT * FROM meta WHERE id_usuario = ? AND estado = true;";
+		try {
+			conexao = FabricaDeConexao.getConnection();
+			PreparedStatement stmt = conexao.prepareStatement(selected_meta);
+			stmt.setInt(1, usuario.getId());
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Tarefa meta = new Tarefa();
+				meta.setId(rs.getInt("id"));
+				meta.setTitulo(rs.getString("titulo"));
+				meta.setDescricao(rs.getString("descricao"));
+				meta.setTags(rs.getString("tags"));
+				meta.setPrioridade(rs.getInt("prioridade"));
+				meta.setEstado(rs.getBoolean("estado"));
+				meta.setUsuario_id(usuario.getId());
+				
+				tarefas.add(meta);
 			}
 			
 		} catch (SQLException e) {

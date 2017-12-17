@@ -23,15 +23,9 @@ import java.awt.event.ActionEvent;
 
 public class TarefasEMetas extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel body;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,9 +39,6 @@ public class TarefasEMetas extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TarefasEMetas() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
 		setTitle("Smarck | Tarefas e Metas");
@@ -76,7 +67,7 @@ public class TarefasEMetas extends JFrame {
 		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
 		btnVoltar.setForeground(new Color(255, 255, 255));
 		btnVoltar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnVoltar.setBackground(Color.LIGHT_GRAY);
+		btnVoltar.setBackground(new Color(192, 192, 192));
 		btnVoltar.setBounds(50, 495, 126, 36);
 		body.add(btnVoltar);
 		
@@ -89,7 +80,7 @@ public class TarefasEMetas extends JFrame {
 			}
 		});
 		btnCadastrar.setForeground(new Color(255, 255, 255));
-		btnCadastrar.setBackground(new Color(102, 205, 170));
+		btnCadastrar.setBackground(new Color(3, 209, 170));
 		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
 		btnCadastrar.setBounds(691, 495, 158, 36);
 		body.add(btnCadastrar);

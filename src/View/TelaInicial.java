@@ -63,22 +63,20 @@ public class TelaInicial extends JFrame {
 		lblNewLabel.setBounds(232, 182, 109, 36);
 		body.add(lblNewLabel);
 		
-		JButton btnSair = new JButton("SAIR");
-		btnSair.addActionListener(new ActionListener() {
+		JButton btnEditar = new JButton("EDITAR");
+		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usuario = null;
-				Login.setSessao(usuario);
-				Login login = new Login();
-				login.setVisible(true);
+				MenuEditar menue = new MenuEditar();
+				menue.setVisible(true);
 				TelaInicial.this.dispose();
 			}
 		});
-		btnSair.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
-		btnSair.setForeground(new Color(255, 255, 255));
-		btnSair.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
-		btnSair.setBackground(Color.LIGHT_GRAY);
-		btnSair.setBounds(50, 495, 126, 36);
-		body.add(btnSair);
+		btnEditar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
+		btnEditar.setForeground(new Color(255, 255, 255));
+		btnEditar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+		btnEditar.setBackground(Color.LIGHT_GRAY);
+		btnEditar.setBounds(50, 495, 126, 36);
+		body.add(btnEditar);
 		
 		JButton btnCadastrar = new JButton("ADICIONAR NOVA");
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -89,7 +87,7 @@ public class TelaInicial extends JFrame {
 			}
 		});
 		btnCadastrar.setForeground(new Color(255, 255, 255));
-		btnCadastrar.setBackground(new Color(102, 205, 170));
+		btnCadastrar.setBackground(new Color(3, 209, 170));
 		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
 		btnCadastrar.setBounds(691, 495, 158, 36);
 		body.add(btnCadastrar);
@@ -385,6 +383,7 @@ public class TelaInicial extends JFrame {
 		}
 		
 		JButton sairIcon = new JButton("");
+		sairIcon.setToolTipText("SAIR");
 		sairIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				usuario = null;
@@ -410,7 +409,7 @@ public class TelaInicial extends JFrame {
 		String data = df.format(dataDeHoje);
 		
 		JLabel lblDdmouthyyyy = new JLabel(data);
-		lblDdmouthyyyy.setForeground(new Color(32, 178, 170));
+		lblDdmouthyyyy.setForeground(new Color(3, 209, 170));
 		lblDdmouthyyyy.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDdmouthyyyy.setFont(new Font("Source Sans Pro", Font.BOLD, 16));
 		lblDdmouthyyyy.setBounds(630, 86, 155, 28);

@@ -14,7 +14,7 @@ import javax.swing.border.BevelBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CadastrarTarefaMeta extends JFrame {
+public class MenuEditar extends JFrame {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class CadastrarTarefaMeta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastrarTarefaMeta frame = new CadastrarTarefaMeta();
+					MenuEditar frame = new MenuEditar();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class CadastrarTarefaMeta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastrarTarefaMeta() {
+	public MenuEditar() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
 		setTitle("Smarck | Cadastrar");
 		setResizable(false);
@@ -58,7 +58,7 @@ public class CadastrarTarefaMeta extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial telaInicial = new TelaInicial();
 				telaInicial.setVisible(true);
-				CadastrarTarefaMeta.this.dispose();
+				MenuEditar.this.dispose();
 			}
 		});
 		btnVoltar.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169), new Color(169, 169, 169)));
@@ -68,18 +68,18 @@ public class CadastrarTarefaMeta extends JFrame {
 		btnVoltar.setBounds(50, 495, 126, 36);
 		body.add(btnVoltar);
 		
-		JLabel lblCadastrar = new JLabel("CADASTRAR");
+		JLabel lblCadastrar = new JLabel("EDITAR");
 		lblCadastrar.setForeground(new Color(138, 43, 226));
 		lblCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
-		lblCadastrar.setBounds(368, 113, 157, 30);
+		lblCadastrar.setBounds(390, 113, 113, 30);
 		body.add(lblCadastrar);
 		
 		JButton btnCadastrarMeta = new JButton("META");
 		btnCadastrarMeta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastrarMeta cadastrarMeta = new CadastrarMeta();
-				cadastrarMeta.setVisible(true);
-				CadastrarTarefaMeta.this.dispose();
+				EditarMeta editarMeta = new EditarMeta();
+				editarMeta.setVisible(true);
+				MenuEditar.this.dispose();
 			}
 		});
 		btnCadastrarMeta.setFocusable(false);
@@ -108,9 +108,9 @@ public class CadastrarTarefaMeta extends JFrame {
 		JButton btnCadastrarTarefa = new JButton("TAREFAS");
 		btnCadastrarTarefa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastrarTarefa cadastrarTarefa = new CadastrarTarefa();
-				cadastrarTarefa.setVisible(true);
-				CadastrarTarefaMeta.this.dispose();
+				EditarTarefa editarT = new EditarTarefa();
+				editarT.setVisible(true);
+				MenuEditar.this.dispose();
 			}
 		});
 		btnCadastrarTarefa.setFocusable(false);
