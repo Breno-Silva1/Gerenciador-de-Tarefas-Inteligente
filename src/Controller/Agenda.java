@@ -305,8 +305,35 @@ public class Agenda {
 		return tarefas;
 	}
 	
-	public ArrayList<Tarefa> exibirTarefasDiarias(){
-		return tarefas;
+	public Tarefa[] exibirTarefasDiarias(Usuario usuario){
+		ArrayList<Tarefa> tarefas = exibirTarefasNaoCumpridas(usuario);
+		ArrayList<Tarefa> metas = exibirMetasNaoCumpridas(usuario);
+		
+		Tarefa[] tarefas_diarias = new Tarefa[3];
+		Tarefa[] metas_diarias = new Tarefa[2];
+		Tarefa[] tarefas_metas_diarias = new Tarefa[5];
+		
+		for (Tarefa t : tarefas) {
+			//IMPLEMENTAR
+		}
+		
+		for (Tarefa m : metas) {
+			//IMPLEMENTAR
+		}
+		
+		for (int i = 0; i < 3; i++) {
+			if (tarefas_metas_diarias[i] == null) {
+				tarefas_metas_diarias[i] = tarefas_diarias[i];
+			}
+		}
+		
+		for (int i = 3; i < 5; i++) {
+			if (tarefas_metas_diarias[i] == null) {
+				tarefas_metas_diarias[i] = metas_diarias[i];
+			}
+		}
+		
+		return tarefas_metas_diarias;
 	}
 	
 	public ArrayList<Tarefa> exibirTarefasNaoCumpridas(Usuario usuario){
