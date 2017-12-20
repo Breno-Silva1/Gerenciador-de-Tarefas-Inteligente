@@ -9,9 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
+import Controller.Agenda;
+import Model.Tarefa;
 import Model.Usuario;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -31,6 +35,9 @@ public class TelaInicial extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel body;
 	Usuario usuario = Login.getSessao();
+	Agenda agenda = new Agenda();
+	
+	Icon aviso = new ImageIcon(getClass().getResource("/img/warning_icon.png"));
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -57,10 +64,10 @@ public class TelaInicial extends JFrame {
 		setContentPane(body);
 		body.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("PRA HOJE:");
+		JLabel lblNewLabel = new JLabel("PARA HOJE:");
 		lblNewLabel.setForeground(new Color(138, 43, 226));
 		lblNewLabel.setFont(new Font("Source Sans Pro", Font.BOLD, 22));
-		lblNewLabel.setBounds(232, 182, 109, 36);
+		lblNewLabel.setBounds(232, 182, 126, 36);
 		body.add(lblNewLabel);
 		
 		JButton btnEditar = new JButton("EDITAR");
@@ -427,5 +434,29 @@ public class TelaInicial extends JFrame {
 		lblNewLabel_1.setBounds(584, 0, 308, 189);
 		body.add(lblNewLabel_1);
 		
+		JLabel[] labels = {tarefa_meta1, tarefa_meta2, tarefa_meta3, tarefa_meta4, tarefa_meta5};
+		metas_e_tarefas_diarias(agenda, labels);
 	}
+	
+	public void metas_e_tarefas_diarias(Agenda agenda, JLabel[] labels){
+		if (usuario != null) {
+			Tarefa[] tmDiarias = agenda.exibirTarefasDiarias(usuario);
+			//TAREFAS
+			if(tmDiarias[2] != null)
+				labels[0].setText(tmDiarias[2].getTitulo().toUpperCase());
+			if(tmDiarias[1] != null)
+				labels[1].setText(tmDiarias[1].getTitulo().toUpperCase());
+			if(tmDiarias[0] != null)
+				labels[2].setText(tmDiarias[0].getTitulo().toUpperCase());
+			//METAS
+			if(tmDiarias[4] != null)
+				labels[3].setText(tmDiarias[4].getTitulo().toUpperCase());
+			if(tmDiarias[3] != null)
+				labels[4].setText(tmDiarias[3].getTitulo().toUpperCase());
+				
+		} else {
+			JOptionPane.showMessageDialog(TelaInicial.this, "Sem usuário logado!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+		}
+	}
+	
 }
