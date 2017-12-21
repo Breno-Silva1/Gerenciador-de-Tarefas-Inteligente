@@ -22,6 +22,7 @@ import javax.swing.JCheckBox;
 import java.awt.Insets;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
+
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
@@ -36,7 +37,9 @@ public class TelaInicial extends JFrame {
 	private JPanel body;
 	Usuario usuario = Login.getSessao();
 	Agenda agenda = new Agenda();
+	Tarefa[] tmDiarias = new Tarefa[5];
 	
+	Icon sucesso = new ImageIcon(getClass().getResource("/img/correct_icon.png"));
 	Icon aviso = new ImageIcon(getClass().getResource("/img/warning_icon.png"));
 
 	public static void main(String[] args) {
@@ -134,6 +137,10 @@ public class TelaInicial extends JFrame {
 		check1.setBorder(null);
 		check1.setFont(new Font("Source Sans Pro", Font.PLAIN, 10));
 		
+		if (check1.isSelected()) {
+			System.out.println("E aí brother?");
+		}
+		
 		JButton btnVerTarefas = new JButton("VER TAREFAS");
 		btnVerTarefas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -153,7 +160,26 @@ public class TelaInicial extends JFrame {
 		btnVerTarefas.setBounds(560, 495, 126, 36);
 		body.add(btnVerTarefas);
 		
+		JLabel tarefa_meta1 = new JLabel("");
+		tarefa_meta1.setBounds(282, 234, 314, 30);
+		body.add(tarefa_meta1);
+		
 		JButton info1 = new JButton("!");
+		info1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (!tarefa_meta1.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja EDITAR esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						EditarTarefa editarTarefa = new EditarTarefa();
+						EditarTarefa.setTarefa(tmDiarias[2]);
+						editarTarefa.setVisible(true);
+						TelaInicial.this.dispose();
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem tarefa!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		info1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		info1.setToolTipText("Editar");
 		info1.setFocusable(false);
@@ -163,10 +189,6 @@ public class TelaInicial extends JFrame {
 		info1.setFont(new Font("Arial", Font.BOLD, 20));
 		info1.setBounds(611, 229, 46, 40);
 		body.add(info1);
-		
-		JLabel tarefa_meta1 = new JLabel("");
-		tarefa_meta1.setBounds(282, 234, 314, 30);
-		body.add(tarefa_meta1);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 250, 154), new Color(0, 250, 154), new Color(0, 250, 154), new Color(0, 250, 154)));
@@ -201,6 +223,21 @@ public class TelaInicial extends JFrame {
 		body.add(panel_4);
 		
 		JButton info2 = new JButton("!");
+		info2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!tarefa_meta2.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja EDITAR esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						EditarTarefa editarTarefa = new EditarTarefa();
+						EditarTarefa.setTarefa(tmDiarias[1]);
+						editarTarefa.setVisible(true);
+						TelaInicial.this.dispose();
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem tarefa!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		info2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		info2.setToolTipText("Editar");
 		info2.setForeground(Color.WHITE);
@@ -239,6 +276,21 @@ public class TelaInicial extends JFrame {
 		body.add(panel_6);
 		
 		JButton info3 = new JButton("!");
+		info3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!tarefa_meta3.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja EDITAR esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						EditarTarefa editarTarefa = new EditarTarefa();
+						EditarTarefa.setTarefa(tmDiarias[0]);
+						editarTarefa.setVisible(true);
+						TelaInicial.this.dispose();
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem tarefa!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		info3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		info3.setToolTipText("Editar");
 		info3.setForeground(Color.WHITE);
@@ -272,11 +324,27 @@ public class TelaInicial extends JFrame {
 		body.add(tarefa_meta4);
 		
 		JPanel panel_8 = new JPanel();
+		panel_8.setBackground(new Color(230, 230, 250));
 		panel_8.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 250, 154), new Color(0, 250, 154), new Color(0, 250, 154), new Color(0, 250, 154)));
 		panel_8.setBounds(272, 346, 339, 40);
 		body.add(panel_8);
 		
 		JButton info4 = new JButton("!");
+		info4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!tarefa_meta4.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja EDITAR esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						EditarMeta editarMeta = new EditarMeta();
+						editarMeta.setTarefa(tmDiarias[4]);
+						editarMeta.setVisible(true);
+						TelaInicial.this.dispose();
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem tarefa!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		info4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		info4.setToolTipText("Editar");
 		info4.setForeground(Color.WHITE);
@@ -310,11 +378,27 @@ public class TelaInicial extends JFrame {
 		body.add(tarefa_meta5);
 		
 		JPanel panel_10 = new JPanel();
+		panel_10.setBackground(new Color(230, 230, 250));
 		panel_10.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 250, 154), new Color(0, 250, 154), new Color(0, 250, 154), new Color(0, 250, 154)));
 		panel_10.setBounds(272, 385, 339, 40);
 		body.add(panel_10);
 		
 		JButton info5 = new JButton("!");
+		info5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!tarefa_meta5.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja EDITAR esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						EditarMeta editarMeta = new EditarMeta();
+						editarMeta.setTarefa(tmDiarias[3]);
+						editarMeta.setVisible(true);
+						TelaInicial.this.dispose();
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem tarefa!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		info5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		info5.setToolTipText("Editar");
 		info5.setForeground(Color.WHITE);
@@ -326,6 +410,21 @@ public class TelaInicial extends JFrame {
 		body.add(info5);
 		
 		JButton btnX = new JButton("x");
+		btnX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!tarefa_meta1.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja REMOVER esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						agenda.removerTarefa(tmDiarias[2].getTitulo(), usuario);
+						JOptionPane.showMessageDialog(TelaInicial.this, "Removido com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE, sucesso);
+						TelaInicial.this.setVisible(false);
+						new TelaInicial().setVisible(true);
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem tarefa!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		btnX.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnX.setToolTipText("Remover");
 		btnX.setForeground(Color.WHITE);
@@ -337,6 +436,21 @@ public class TelaInicial extends JFrame {
 		body.add(btnX);
 		
 		JButton button = new JButton("x");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!tarefa_meta2.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja REMOVER esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						agenda.removerTarefa(tmDiarias[1].getTitulo(), usuario);
+						JOptionPane.showMessageDialog(TelaInicial.this, "Removido com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE, sucesso);
+						TelaInicial.this.setVisible(false);
+						new TelaInicial().setVisible(true);
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem tarefa!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setToolTipText("Remover");
 		button.setForeground(Color.WHITE);
@@ -348,6 +462,21 @@ public class TelaInicial extends JFrame {
 		body.add(button);
 		
 		JButton button_1 = new JButton("x");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!tarefa_meta3.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja REMOVER esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						agenda.removerTarefa(tmDiarias[0].getTitulo(), usuario);
+						JOptionPane.showMessageDialog(TelaInicial.this, "Removido com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE, sucesso);
+						TelaInicial.this.setVisible(false);
+						new TelaInicial().setVisible(true);
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem tarefa!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		button_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_1.setToolTipText("Remover");
 		button_1.setForeground(Color.WHITE);
@@ -359,6 +488,21 @@ public class TelaInicial extends JFrame {
 		body.add(button_1);
 		
 		JButton button_2 = new JButton("x");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!tarefa_meta4.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja REMOVER esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						agenda.removerMeta(tmDiarias[4].getTitulo(), usuario);
+						JOptionPane.showMessageDialog(TelaInicial.this, "Removido com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE, sucesso);
+						TelaInicial.this.setVisible(false);
+						new TelaInicial().setVisible(true);
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem Meta!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		button_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_2.setToolTipText("Remover");
 		button_2.setForeground(Color.WHITE);
@@ -370,6 +514,21 @@ public class TelaInicial extends JFrame {
 		body.add(button_2);
 		
 		JButton button_3 = new JButton("x");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!tarefa_meta5.getText().equals("")) {
+					int confirmar = JOptionPane.showConfirmDialog(TelaInicial.this, "Deseja REMOVER esta tarefa?", "Confirmar", 0, 0, aviso);
+					if (confirmar == JOptionPane.YES_OPTION) {
+						agenda.removerMeta(tmDiarias[3].getTitulo(), usuario);
+						JOptionPane.showMessageDialog(TelaInicial.this, "Removido com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE, sucesso);
+						TelaInicial.this.setVisible(false);
+						new TelaInicial().setVisible(true);
+					}
+				} else {
+					JOptionPane.showMessageDialog(TelaInicial.this, "Sem Meta!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
+				}
+			}
+		});
 		button_3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button_3.setToolTipText("Remover");
 		button_3.setForeground(Color.WHITE);
@@ -440,7 +599,8 @@ public class TelaInicial extends JFrame {
 	
 	public void metas_e_tarefas_diarias(Agenda agenda, JLabel[] labels){
 		if (usuario != null) {
-			Tarefa[] tmDiarias = agenda.exibirTarefasDiarias(usuario);
+			tmDiarias = agenda.exibirTarefasDiarias(usuario);
+			setDiarias(tmDiarias);
 			//TAREFAS
 			if(tmDiarias[2] != null)
 				labels[0].setText(tmDiarias[2].getTitulo().toUpperCase());
@@ -458,5 +618,7 @@ public class TelaInicial extends JFrame {
 			JOptionPane.showMessageDialog(TelaInicial.this, "Sem usuário logado!", "Aviso", JOptionPane.INFORMATION_MESSAGE, aviso);
 		}
 	}
-	
+	public void setDiarias(Tarefa[] tarefas){
+		this.tmDiarias = tarefas;
+	}
 }

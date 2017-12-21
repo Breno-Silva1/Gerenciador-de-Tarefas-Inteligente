@@ -377,4 +377,10 @@ public class EditarMeta extends JFrame {
 		comboBoxPrioridade.setSelectedIndex(0);
 		comboBoxTipo.setSelectedIndex(0);
 	}
+	public void setTarefa(Tarefa umaTarefa){
+		meta = umaTarefa;
+		if (meta != null) {
+			campoBusca.setText(meta.getTitulo());
+		}
+	}
 }

@@ -207,7 +207,7 @@ public class MenuTarefasEMetas extends JFrame {
 		btnVoltar.setBackground(Color.LIGHT_GRAY);
 		btnVoltar.setBounds(50, 495, 126, 36);
 		body.add(btnVoltar);
-		
+		/*
 		JButton btnCadastrar = new JButton("VER TUDO");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -216,12 +216,13 @@ public class MenuTarefasEMetas extends JFrame {
 				MenuTarefasEMetas.this.dispose();
 			}
 		});
+		
 		btnCadastrar.setForeground(new Color(255, 255, 255));
 		btnCadastrar.setBackground(new Color(138, 43, 226));
 		btnCadastrar.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
 		btnCadastrar.setBounds(723, 495, 126, 36);
 		body.add(btnCadastrar);
-		
+		*/
 		JLabel logo_reduced = new JLabel("");
 		logo_reduced.setIcon(new ImageIcon(CadastrarUsuario.class.getResource("/img/logo_reduced.png")));
 		logo_reduced.setBounds(50, 35, 233, 69);

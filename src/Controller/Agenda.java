@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Model.Tarefa;
 import Model.Usuario;
@@ -73,6 +75,30 @@ public class Agenda {
 			e.printStackTrace();
 		}
 		return retorno;
+	}
+	
+	public boolean expirarTarefaOuMeta(Tarefa tarefa_ou_meta){
+		boolean estaExpirado = false;
+		Date dataDeHoje = new Date();
+		SimpleDateFormat df = new SimpleDateFormat();
+		String dataHoje = df.format(dataDeHoje);
+		String[] dataHJ = dataHoje.split("/");
+		String[] dataTM = tarefa_ou_meta.getData().split("/");
+		
+		if (Integer.parseInt(dataTM[2]) >= Integer.parseInt(dataHJ[2])) {
+			if (Integer.parseInt(dataTM[1]) >= Integer.parseInt(dataHJ[1])) {
+				if (Integer.parseInt(dataTM[0]) >= Integer.parseInt(dataHJ[0])) {
+					estaExpirado = false;
+				} else {
+					estaExpirado = true;
+				}
+			} else {
+				estaExpirado = true;
+			}
+		} else {
+			estaExpirado = true;
+		}
+		return estaExpirado;
 	}
 
 	public boolean removerTarefa(String titulo, Usuario usuario) {

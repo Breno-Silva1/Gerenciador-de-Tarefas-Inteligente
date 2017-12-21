@@ -40,13 +40,14 @@ public class EditarTarefa extends JFrame {
 	private JTextField campoTitulo;
 	private JTextField campoDescricao;
 	private JTextField campoTags;
+	static JButton btnEditar = new JButton("");
 	
 	Icon sucesso = new ImageIcon(getClass().getResource("/img/correct_icon.png"));
 	Icon aviso = new ImageIcon(getClass().getResource("/img/warning_icon.png"));
 	
 	Agenda agenda = new Agenda();
 	Usuario usuario = Login.getSessao();
-	Tarefa tarefa = null;
+	static Tarefa tarefa = null;
 	
 	//TIPOS:
 	Tipo arte = new Tipo("Arte");
@@ -59,7 +60,7 @@ public class EditarTarefa extends JFrame {
 	Tipo trabalho = new Tipo("Trabalho");
 	Tipo viajem = new Tipo("Viajem");
 	Tipo outro = new Tipo("Outro");
-	private JTextField campoBusca;
+	private static JTextField campoBusca;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -217,7 +218,6 @@ public class EditarTarefa extends JFrame {
 		comboBoxTipo.setBounds(577, 422, 126, 36);
 		body.add(comboBoxTipo);
 		
-		JButton btnEditar = new JButton("");
 		btnEditar.setIcon(new ImageIcon(EditarTarefa.class.getResource("/img/edit_icon.png")));
 		btnEditar.setToolTipText("Edi\u00E7\u00E3o concluida");
 		btnEditar.setEnabled(false);
@@ -417,5 +417,12 @@ public class EditarTarefa extends JFrame {
 		comboBoxPrioridade.setSelectedIndex(0);
 		comboBoxTipo.setSelectedIndex(0);
 		data_tarefa.setDate(null);
+	}
+	public static void setTarefa(Tarefa umaTarefa){
+		tarefa = umaTarefa;
+		btnEditar.isSelected();
+		if (tarefa != null) {
+			campoBusca.setText(tarefa.getTitulo());
+		}
 	}
 }
