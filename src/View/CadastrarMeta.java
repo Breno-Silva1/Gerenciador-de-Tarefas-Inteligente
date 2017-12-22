@@ -69,7 +69,7 @@ public class CadastrarMeta extends JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CadastrarMeta() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Cadastrar Meta");
+		setTitle("Smark | Cadastrar Meta");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);

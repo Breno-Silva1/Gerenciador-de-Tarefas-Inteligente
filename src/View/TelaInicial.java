@@ -57,7 +57,7 @@ public class TelaInicial extends JFrame {
 
 	public TelaInicial() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Tela Inicial");
+		setTitle("Smark | Tela Inicial");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);

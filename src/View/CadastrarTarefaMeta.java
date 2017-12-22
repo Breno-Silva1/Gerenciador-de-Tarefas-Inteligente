@@ -43,7 +43,7 @@ public class CadastrarTarefaMeta extends JFrame {
 	 */
 	public CadastrarTarefaMeta() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Cadastrar");
+		setTitle("Smark | Cadastrar");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);

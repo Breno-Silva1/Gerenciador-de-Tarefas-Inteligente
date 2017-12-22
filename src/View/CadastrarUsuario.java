@@ -54,7 +54,7 @@ public class CadastrarUsuario extends JFrame {
 
 	public CadastrarUsuario() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Cadastrar Usuário");
+		setTitle("Smark | Cadastrar Usuário");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);

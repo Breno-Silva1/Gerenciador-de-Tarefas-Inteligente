@@ -41,7 +41,7 @@ public class TarefasEMetas extends JFrame {
 
 	public TarefasEMetas() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Tarefas e Metas");
+		setTitle("Smark | Tarefas e Metas");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);

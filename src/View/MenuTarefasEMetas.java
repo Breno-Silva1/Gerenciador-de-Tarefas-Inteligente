@@ -57,7 +57,7 @@ public class MenuTarefasEMetas extends JFrame {
 	@SuppressWarnings("serial")
 	public MenuTarefasEMetas() throws PropertyVetoException {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/icon.png")));
-		setTitle("Smarck | Menu Tarefas e Metas");
+		setTitle("Smark | Menu Tarefas e Metas");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 622);
